@@ -1,15 +1,19 @@
-import ComplianceForm from '@/components/ComplianceForm';
-import ComplianceList from '@/components/ComplianceList';
-import ComplianceSummary from '@/components/ComplianceSummary';
-import { ComplianceProvider } from '@/context/ComplianceContext';
+import { MacroProvider } from '../context/MacroContext';
+import FoodInput from '../components/FoodInput';
+import GoalTracker from '../components/GoalTracker';
+import FoodList from '../components/FoodList';
 
-export default function Home() {
+const Home = () => {
   return (
-    <ComplianceProvider>
-      <h1>Morco Compliant Tracker</h1>
-      <ComplianceForm />
-      <ComplianceSummary />
-      <ComplianceList />
-    </ComplianceProvider>
+    <MacroProvider>
+      <div className="p-8 space-y-8">
+        <h1 className="text-2xl font-bold">Macro Compliance Tracker</h1>
+        <GoalTracker />
+        <FoodInput />
+        <FoodList />
+      </div>
+    </MacroProvider>
   );
-}
+};
+
+export default Home;
