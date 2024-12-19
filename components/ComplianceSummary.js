@@ -9,6 +9,7 @@ const ComplianceSummary = () => {
     <div>
       <h2>Compliance Summary</h2>
       <h4>list item{complianceData.length}</h4>
+      <h4>complaince item{compliantItemsCount}</h4>
     </div>
   );
 };

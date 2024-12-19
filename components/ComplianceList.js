@@ -1,14 +1,26 @@
-import { useCompliance } from '../context/ComplianceContext';
+import { getCompliantItems, getNonCompliantItems } from '../lib/utils';
 
 const ComplianceList = () => {
-  const { complianceData } = useCompliance();
+  const compliantItems = getCompliantItems();
+  const nonCompliantItems = getNonCompliantItems();
 
   return (
     <div>
-      <h2>compliance List</h2>
+      <h2>complaint items</h2>
       <ul>
-        {complianceData.map((item, index) => (
-          <li key={index}>
+        {compliantItems.map((item) => (
+          <li key={item.id}>
+            <h4>{item.name}</h4>
+            <p>{item.description}</p>
+            <p>{item.date}</p>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Non-Complaint items</h2>
+      <ul>
+        {nonCompliantItems.map((item) => (
+          <li key={item.id}>
             <h4>{item.name}</h4>
             <p>{item.description}</p>
             <p>{item.date}</p>
