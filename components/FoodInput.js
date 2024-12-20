@@ -4,6 +4,7 @@ import { useMacros } from '../context/MacroContext';
 const FoodInput = () => {
   const { addFood } = useMacros();
   const [food, setFood] = useState({ name: '', calories: 0, protein: 0, carbs: 0, fats: 0 });
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,12 +13,23 @@ const FoodInput = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validate that all fields are filled out
+    if (!food.name || food.calories <= 0 || food.protein < 0 || food.carbs < 0 || food.fats < 0) {
+      setError('Please fill out all fields with valid values.');
+      return;
+    }
+
+    // If validation passes, add food and reset form
     addFood({ ...food, id: Date.now() });
     setFood({ name: '', calories: 0, protein: 0, carbs: 0, fats: 0 });
+    setError('');  // Clear error message on successful submit
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && <div className="text-red-500">{error}</div>}  {/* Show error message if validation fails */}
+      
       <input
         type="text"
         name="name"

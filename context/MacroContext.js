@@ -16,20 +16,34 @@ export const MacroProvider = ({ children }) => {
     setFoodList((prevFoodList) => prevFoodList.filter(food => food.id !== id));
   };
 
+
   const updateGoal = (newGoal) => {
     setGoal(newGoal);
   };
 
   const calculateTotalMacros = () => {
     return foodList.reduce((totals, food) => {
-      totals.calories += food.calories;
-      totals.protein += food.protein;
-      totals.carbs += food.carbs;
-      totals.fats += food.fats;
+      totals.calories += Number(food.calories);  // Ensure the value is treated as a number
+      totals.protein += Number(food.protein);    // Same for protein
+      totals.carbs += Number(food.carbs);        // Same for carbs
+      totals.fats += Number(food.fats);          // Same for fats
       return totals;
-    }, { calories: 0, protein: 0, carbs: 0, fats: 0 });
+    }, { calories: 0, protein: 0, carbs: 0, fats: 0 }); // Start with 0 for each macro
   };
-
+  
+  // Calculate the overall total (sum of all macros)
+  const calculateTotal = (totals) => {
+    const total = totals.calories + totals.protein + totals.carbs + totals.fats;
+    return total; // Return the total sum
+  };
+  
+  const totals = calculateTotalMacros();
+  const total = calculateTotal(totals);
+  
+  console.log("Total Macros:", totals);
+  console.log("Overall Total (Calories + Protein + Carbs + Fats):", total);
+  
+  
   return (
     <MacroContext.Provider value={{ foodList, goal, addFood, removeFood, updateGoal, calculateTotalMacros }}>
       {children}
